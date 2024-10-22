@@ -1,0 +1,50 @@
+{%extends 'core/base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+
+<div class="container" id="headerCatalogo">
+
+    <div class="row" > 
+
+      <div class="col tituloCatalogo"> <h1 id="tituloCatalogo">Revisa nuestro catalogo de productos</h1></div>
+
+
+    </div>
+
+    <div class="row">
+
+      <div class="col parrafoCatalogo"> <p id="parrafoCatalogo">Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br>
+        Atque sit distinctio, dignissimos quod, doloremque minus voluptates aliquid voluptate ipsam suscipit <br>
+        dolorum ipsa ducimus maiores sunt et error magnam minima vero.</p></div>
+
+    </div>
+
+
+  </div>
+
+  <div class="container mt-5">
+        <div class="row">
+          {% for p in productos %}
+            <div class="col-md-3">
+              <div class="card h-100">
+                  {%if p.imagen %}
+                  <img src="{{ p.imagen.url }}" class="card-img-top" alt="{{ p.nombre }}">
+                  {% endif %}
+                  <div class="card-body">
+                      <h5 class="card-title">{{ p.nombre }}</h5>
+                      <p class="card-text">{{ p.descripcion }}</p>
+                      <h4 style="display: inline-block; float: right">${{p.precio}}</h4>
+                      <a href="#" class="btn btn-warning text-dark">Añadir a carrito</a>
+                  </div>
+              </div>
+          </div>
+
+          {%endfor%}
+
+    </div>
+  </div>
+
+{% endblock %}

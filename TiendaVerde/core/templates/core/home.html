@@ -1,0 +1,166 @@
+{%extends 'core/base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+      <!--Carrusel de imagenes con información sobre la empresa-->
+      <!--Explicación del carrusel:
+      -El carrusel contiene dos imagenes, y para ver una o la otra se apreta un boton en la izquierda o la derecha del carrusel
+      -Utiliza media queries para lograr que la imagen ocupe todo el espacio del contenedor en diferentes pantallas -->  
+      <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'imagenes/home1.jpg' %}" class="d-block w-100 img-fluid" alt="Tres botes de basura, que dicen respectivamente 'Compost', 'Waste' y 'Recicle', en el aire libre">
+            <div class="carousel-caption d-md-block">
+              <h5>Quienes somos</h5>
+              <p>Somos una pequeña empresa local dedicada a la venta de productos ecológicos y sostenibles.
+                Deseamos ver un mundo más verde, conformado por gente comprometida con el medio ambiente.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'imagenes/home2.jpg' %}" class="d-block w-100 img-fluid" alt="Cajas amontonadas para reciclar, con un cartel que dice 'Recycling Only' posicionado en el frente de un container gris">
+            <div class="carousel-caption d-md-block">
+              <h5>¿Sabias que?</h5>
+              <p>Mundialmente solo un </p> <h4 id="porcentajeEnfasis">14%</h4> <p> de los desechos son reciclados (ISWA)</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!--Seccion informacion del equipo-->
+
+      <section id="seccionEquipo" class="seccionEquipo section-padding">
+
+        <div class="container">
+
+          <div class="row">
+  
+            <div class="col-lg-4 col-12">
+
+              <!--Explicación de los media query:
+              -Cuando la pantalla tiene un tamaño large o superior, la imagen ocupa 4 columnas.
+              -Cuando la pantalla tiene un tamaño de small hasta medium, la imagen ocupa 12 columnas-->
+  
+              <div class="imgEquipo">
+  
+                  <img src="{% static 'imagenes/equipo1.jpg' %}" alt="Se muestra un grupo de personas tomadas de la mano, frente a un fondo blanco" class="img-fluid">
+  
+              </div>
+  
+            </div>
+  
+            <div class="col-lg-8 col-12 ps-lg-5 mt-md-5">
+              <!--Cuando la pantalla tiene un tamaño large o superior, la seccion de información ocupa 8 columnas.
+              - Cuando la pantalla tiene un tamaño de small a medium, ocupa 12 columnas. 
+              -Tiene un padding start (izquierda) de 5 (aprox 48px) cuando la pantalla es de tamaño minimo large
+              -Tiene un margin-top de 5 (aprox 48px) cuando la pantalla es de tamaño minimo medium-->
+  
+                <div class="textoEquipo">
+  
+                  <h2 id="tituloEquipo">Nuestra mision: <br> proteger el planeta</h2>
+                  <p id="parrafoEquipo">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae, officiis? Non sequi impedit perspiciatis nostrum voluptatem sed molestias deserunt iusto eligendi delectus. Adipisci architecto reiciendis omnis? Eius dolores aliquid corporis officiis unde minima architecto, eveniet veritatis laborum suscipit vero facilis.</p>
+                  <a id="botonEquipo" href="#" class="btn btn-warning">Contactanos</a>
+                </div>
+  
+  
+            </div>
+  
+          </div>
+  
+  
+        </div>
+
+      </section>
+
+      
+
+      <!--Sección de productos destacados-->
+      <section id="productosDestacados" class="productosDestacados section-padding">
+
+          <div class="container">
+
+              <div class="row">
+
+                <div class="col-md-12">
+                  <!--El titulo y el parrafo ocupan 12 columnas. Se distribuyen uno abajo del otro-->
+
+                  <div class="section-header text-center pb-5">
+
+                    <h2 id="tituloHeaderProductos">Productos destacados</h2>
+                    <p id="parrafoHeaderProductos">Algunos de nuestros productos más cotizados</p>
+
+                  </div>
+                
+
+                </div>
+              
+
+              </div>
+
+          </div>
+
+          <div class="container">
+
+            <div class="row gy-3">
+
+              <div class="col-md-4">
+                <!--Cada producto ocupa cuatro colummnas hasta un tamaño minimo de medium-->
+                <div class="card h-100">
+                  <img src="{% static 'imagenes/item1.png' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Robot hecho de materiales reciclados</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae expedita dolor quas odio nobis reprehenderit dicta ducimus nihil.</p>
+                    <a href="catalogo.html" class="btn btn-warning text-dark">Ver más</a>
+                    <!--cada vez que se selecciona el boton de ver más, se envia al usuario al catalogo de productos-->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+
+                <div class="card h-100">
+                  <img src="{% static 'imagenes/item2.png' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Auto motorizado por energia solar</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas molestias repellendus itaque, autem repudiandae ex mollitia natus ab.</p>
+                    <a href="catalogo.html" class="btn btn-warning text-dark">Ver más</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <div class="card h-100">
+                  <img src="{% static 'imagenes/item4.png' %}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">Cartera de materiales sinteticos reciclados</h5>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure itaque dolorem iste nemo perferendis corporis fugit, expedita corrupti!</p>
+                    <a href="catalogo.html" class="btn btn-warning text-dark">Ver más</a>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+      </section>
+
+{% endblock %}

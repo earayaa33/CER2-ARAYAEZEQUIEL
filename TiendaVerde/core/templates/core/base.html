@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <title>Tienda Verde</title>
+</head>
+<body>
+     
+
+    <!--Navbar: barra de navegacion de la pagina-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="navBar">
+        <!--Explicación de la barra de navegación:
+          -La barra se expande desde el maximo hasta el tamaño large. Luego de eso, se despliegan los items como un menu de hamburguesa
+          -La barra se mantiene pegada en la cabecera de la pagina mientras esta se recorre (fixed-top)        
+          -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="colNavIcon col-2">
+              <img src="{% static 'imagenes/leaf.png' %}" alt="" id="iconNav" class="img-fluid">
+
+            </div>
+            <div class="col-10">
+              <a class="navbar-brand" href="#">
+            
+                <h1 id="brand">tienda verde</h1></a>
+            </div>
+
+          </div>
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Principal</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'catalogo' %}">Catalogo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'formulario' %}">Solicitud de reciclaje</a>
+              </li>
+
+              {%if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class ="nav-link" href="{%url 'carrito' %}"> <img id="iconoCarrito" src="{% static 'imagenes/cart.png' %}" alt=""></a>
+                </li>
+                <li class="nav-item"> <p id="cart-total">0</p></li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+                </li> 
+              {%else%}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                </li>
+              {%endif%}
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+      </div>
+
+      {% block main %}
+
+
+
+      {% endblock %}
+
+      <!-- Sección footer de la pagina-->
+
+      <section id="footer" class="footer section-padding">
+
+        <div class="container">
+
+          <div class="row gy-5 gx-5">
+
+            <div class="col-12 col-lg-4 p-6">
+              <!--Explicación de los media query:
+              -Cuando la pantalla tiene un tamaño large o superior, las secciones del footer ocupan un espacio de 4 columnas cada una.
+              -Cuando la pantalla tiene un tamaño de small hasta medium, cada seccion ocupa 12 columnas cada una (una fila.) -->
+
+              <div class="row">
+
+                  <div class="col-2 colIconFooter">
+                    <!--El icono siempre ocupara 2 columnas de la fila. -->
+
+                    <img src="{% static 'imagenes/leaf.png' %}" alt="" id="iconFooter" class="img-fluid">
+
+                  </div>
+
+                  <div class="col-10 tituloInfoEmpresa">
+                    <!--El titulo siempre ocupara 10 columnas de la fila. -->
+                  <h2>tienda verde</h2>
+  
+                </div>
+  
+
+              </div>
+
+              <div class="row">
+                <div class="col-12 infoEmpresa">
+
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam, quam ullam fuga, quae nihil recusandae iusto, doloribus amet vel aliquam eius aliquid eos quo ut nostrum? Quam ipsum a dolorem.</p>
+  
+                </div>
+
+              </div>
+              
+              
+
+            </div>
+            <div class="col-12 col-lg-4 p-6">
+              <div class="col-12 contactoTitulo">
+                <h2>Info de contacto</h2>
+                <!--Tanto el titulo como la información de contacto utilizan 12 columnas cada uno. -->
+
+              </div>
+              <div class="col-12 contactoInfo">
+                <p> <i class="bi bi-signpost"></i> Direccion: Lorem ipsum dolor sit amet consectetur. <br>
+                  <i class="bi bi-telephone"></i> Telefono: +1800-222-3333 <br>
+                  <i class="bi bi-envelope"></i> Mail: contact@tiendaverde.com
+                </p>
+
+              </div>
+              
+
+            </div>
+            <!--La seccion de redes sociales ocupa 12 columnas por completo. Los iconos van uno al lado del otro, pues son una fuente de tipografia. -->
+            <div class="col-12 col-lg-4 p-6 colSocials">
+              <h4 id="socialTitulo">Redes sociales</h4><br>
+              <i class="bi bi-instagram socialIcon"></i> 
+              <i class="bi bi-facebook socialIcon"></i> 
+              <i class="bi bi-twitter socialIcon"></i> 
+              <i class="bi bi-youtube socialIcon"></i> 
+              <i class="bi bi-telegram socialIcon"></i> 
+
+          </div>
+
+        </div>
+
+
+      </section>
+      
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {%if messages %}
+      {% for m in messages %}
+
+        <script>
+
+            Swal.fire({
+
+                "title": "Felicitaciones",
+                "text" : "{{m}}",
+                "icon" : "success"
+
+            })
+
+        </script>
+
+      {%endfor%}
+    {%endif%}
+
+
+</body>
+</html>

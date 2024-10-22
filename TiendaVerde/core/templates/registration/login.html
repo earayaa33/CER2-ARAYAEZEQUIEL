@@ -1,0 +1,53 @@
+{%extends 'core/base.html' %}
+
+{% load static %}
+
+{% block main %}
+
+<section id="sectionLogin">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <h2>Ingresa tus credenciales</h2>
+                        <hr>
+                        <form action="" method="post">
+
+                            {% csrf_token %}
+                            {{form}}
+
+                            <input type="submit" value="Ingresar" id="btnIngresar">
+
+                            <hr>
+
+                            <div class="row d-flex justify-content-center">
+
+                                <div class="col-md-4"><p>¿No tiene una cuenta?</p></div>
+
+                                <div class="col-md-4"><a href="{% url 'registro' %}"> Crear cuenta</a></div>
+
+                            </div>
+
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+    
+{% endblock %}
