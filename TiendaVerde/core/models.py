@@ -13,9 +13,15 @@ class Producto(models.Model):
         return f'{self.nombre}->{self.precio}'
 
 class Pedido(models.Model):
+    ESTADO_CHOICES = [
+        ('pendiente', 'Pendiente'),
+        ('completado', 'Completado'),
+    ]
+
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Relacionado con el usuario que hace el pedido
     productos = models.ManyToManyField('Producto', through='PedidoProducto')  # Relación con productos a través de una tabla intermedia
     fecha = models.DateTimeField(auto_now_add=True)
+    estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
 
     def __str__(self):
         return f'Pedido {self.id} por {self.usuario.username}'

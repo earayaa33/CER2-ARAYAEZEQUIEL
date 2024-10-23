@@ -15,15 +15,25 @@ class Carrito:
             self.carrito[id] = {
                 "producto_id" : producto.id,
                 "nombre" : producto.nombre,
+                "precio_unitario:" : producto.precio,
                 "acumulado" : producto.precio,
                 "cantidad" : 1,
+                'imagen_url': producto.imagen.url
 
             }
         else:
             self.carrito[id]["cantidad"] += 1
             self.carrito[id]["acumulado"] += producto.precio
         
+        self.carrito[id]["precio_unitario"] = self.carrito[id]["acumulado"] / self.carrito[id]["cantidad"]
+        
         self.guardar_carrito()
+
+    def obtener_items(self):
+        return self.carrito.items()
+
+    def contar_productos(self):
+        return sum(item['cantidad'] for item in self.carrito.values())
 
     def guardar_carrito(self):
         self.session["carrito"] = self.carrito

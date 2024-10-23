@@ -17,10 +17,10 @@
 				    <br>
 				    <table class="table">
 					    <tr>
-						    <th><h5>Productos: <strong>{{carrito|length}}</strong></h5></th>
+						    <th><h5>Productos: <strong>{{total_productos}}</strong></h5></th>
 						    <th><h5>Total:<strong> {{ carrito.total_precio }}</strong></h5></th>
 						    <th>
-							<a  style="float:right; margin:5px;" class="btn btn-success" href="#">Realizar pedido</a>
+							<a  style="float:right; margin:5px;" class="btn btn-success" href="realizar_pedido">Realizar pedido</a>
 						    </th>
 					    </tr>
 				    </table>
@@ -31,33 +31,50 @@
     
                 <div class="elementoCaja">
 
-                    <div class="filaCarrito">
-                        <div style="flex:2"></div>
-                        <div style="flex:2"><strong>Item</strong></div>
-                        <div style="flex:1"><strong>Price</strong></div>
-                        <div style="flex:1"><strong>Quantity</strong></div>
-                        <div style="flex:1"><strong>Total</strong></div>
-                    </div>
-                    {% for key, item in carrito.carrito.items %}
-                    <div class="filaCarrito">
-                        <div style="flex:2"><img class="row-image" src="{{ item.imagen_url }}"></div>
-                        <div style="flex:2"><p>{{item.nombre}}</p></div>
-                        <div style="flex:1"><p>${{item.precio}}</p></div>
-                        <div style="flex:1">
-                            <p class="quantity">{{item.cantidad}}</p>
+                    <div class="container">
+                        
+                        <div class="row">
                             
-                            <div class="quantity">
-                                <a href="{% url 'agregar_producto' item.producto_id %}">
-                                    <img class="chg-quantity" src="{% static 'imagenes/arriba.png' %}" alt="Aumentar cantidad">
-                                </a>
-                                <!-- Botón para disminuir cantidad -->
-                                <a href="{% url 'restar_producto' item.producto_id %}">
-                                    <img class="chg-quantity" src="{% static 'imagenes/abajo.png' %}" alt="Disminuir cantidad">
-                            </div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-2"><strong>Producto</strong></div>
+                            <div class="col-lg-2"><strong>Precio unitario</strong></div>
+                            <div class="col-lg-2"><strong>Cantidad</strong></div>
+                            <div class="col-lg-2"><strong>Total</strong></div>
+    
                         </div>
-                        <div style="flex:1"><p>${{item.acumulado}}</p></div>
+    
+
                     </div>
-                    {% endfor %}
+                    
+                    
+
+                    <div class="container">
+
+                        {% for key, item in carrito.carrito.items %}
+
+                        <div class="row">
+
+                            <div class="col-lg-4"><img class="row-image" src="{{ item.imagen_url }}"></div>
+                            <div class="col-lg-2"><p>{{item.nombre}}</p></div>
+                            <div class="col-lg-2"><p>${{ item.precio_unitario }}</p></div>
+                            <div class="col-lg-2">
+
+                                <div class="row">
+                                    <div class="col-lg-2">{{item.cantidad}}</div>
+                                    <div class="col-lg-1"><a href="{% url 'agregar_producto' item.producto_id %}">
+                                        <img class="chg-quantity" src="{% static 'imagenes/arriba.png' %}" alt="Aumentar cantidad"></a></div>
+                                    <div class="col-lg-1"><a href="{% url 'restar_producto' item.producto_id %}">
+                                        <img class="chg-quantity" src="{% static 'imagenes/abajo.png' %}" alt="Disminuir cantidad"></a> </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-lg-2"><p>${{item.acumulado}}</p></div>
+
+                        </div>
+
+                        {% endfor %}
+                    </div>
     
     
                 </div>

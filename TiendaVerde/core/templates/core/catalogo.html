@@ -37,7 +37,7 @@
                       <h5 class="card-title">{{ p.nombre }}</h5>
                       <p class="card-text">{{ p.descripcion }}</p>
                       <h4 style="display: inline-block; float: right">${{p.precio}}</h4>
-                      <a href="{% url 'agregar_producto' p.id %}" class="btn btn-warning text-dark">Añadir a carrito</a>
+                      <a href="{% url 'añadir_a_carrito' p.id %}" class="btn btn-warning text-dark">Añadir a carrito</a>
                   </div>
               </div>
           </div>

@@ -5,15 +5,23 @@ from django.contrib import messages
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 def home(request):
-    return render(request, 'core/home.html', {})
+    carrito = Carrito(request)
+    total_productos = carrito.contar_productos()
+
+    return render(request, 'core/home.html', {'carrito': carrito, 'total_productos': total_productos})
 
 def catalogo(request):
     productos = Producto.objects.all()
+    carrito = Carrito(request)
+    total_productos = carrito.contar_productos()
+
     data = {
-        'productos': productos
+        'productos': productos, 'total_productos' : total_productos
     }
+
     return render(request, 'core/catalogo.html', data)
 
 def formulario(request):
@@ -45,7 +53,19 @@ def registro(request):
 
 def ver_carrito(request):
     carrito = Carrito(request)
-    return render(request, 'core/carrito.html', {'carrito': carrito})
+    total_productos = carrito.contar_productos()
+
+    return render(request, 'core/carrito.html', {'carrito': carrito, 'total_productos': total_productos})
+
+
+@login_required 
+def añadir_a_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    carrito = Carrito(request)
+    carrito.agregar(producto)
+    messages.success(request, f'{producto.nombre} añadido al carrito.')
+    return redirect('catalogo')  # Redirigir al catálogo en vez del carrito
+
 
 @login_required
 def agregar_producto(request, producto_id):
@@ -76,18 +96,20 @@ def limpiar_carrito(request):
 
 def realizar_pedido(request):
     carrito = Carrito(request)
-    if not carrito.carrito:
-        return redirect('ver_carrito')  # Redirige si el carrito está vacío
 
+    if not carrito.carrito:
+        return JsonResponse({'status': 'error', 'message': 'El carrito está vacío.'})
+
+    # Crea un nuevo pedido para el usuario actual
     pedido = Pedido.objects.create(usuario=request.user)
 
+    # Itera sobre los items en el carrito
     for item in carrito.carrito.values():
         producto = Producto.objects.get(id=item['producto_id'])
         cantidad = item['cantidad']
         PedidoProducto.objects.create(pedido=pedido, producto=producto, cantidad=cantidad)
 
-    carrito.limpiar()  # Limpiar el carrito después de crear el pedido
-    return redirect('pedido_realizado')
+    carrito.limpiar()  # Limpia el carrito después de crear el pedido
 
-def pedido_realizado(request):
-    return render(request, 'core/pedido_realizado.html')
+    messages.success(request, "Pedido realizado exitosamente")
+    return redirect(to="catalogo")
