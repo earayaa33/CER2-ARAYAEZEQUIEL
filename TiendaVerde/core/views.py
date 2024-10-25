@@ -102,7 +102,8 @@ def realizar_pedido(request):
     carrito = Carrito(request)
 
     if not carrito.carrito:
-        return JsonResponse({'status': 'error', 'message': 'El carrito está vacío.'})
+        messages.error(request, 'El carrito está vacío.')
+        return redirect('catalogo')
 
     # Crea un nuevo pedido para el usuario actual
     pedido = Pedido.objects.create(usuario=request.user)
