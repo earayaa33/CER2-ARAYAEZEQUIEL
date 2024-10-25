@@ -5,12 +5,37 @@ from .models import Producto, Pedido, PedidoProducto
 # Register your models here.
 
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "precio", "descripcion"]
+    list_display = ["nombre", "precio", "descripcion", "stock"]
     list_editable = ["precio"]
     search_fields = ["nombre"]
     list_filter = ["precio"]
 
-admin.site.register(Producto)
-admin.site.register(Pedido)
-admin.site.register(PedidoProducto)
+class PedidoProductoInline(admin.TabularInline):
+    model = PedidoProducto
+    readonly_fields = ["producto","cantidad", "precio_total"]
+
+    def precio_total(self, obj):
+        return obj.producto.precio * obj.cantidad  # Calcula el precio total
+
+    precio_total.short_description = "Precio Total"
+
+
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ["id", "usuario", "estado", "fecha"]
+    list_editable = ["estado"]
+    list_filter = ["estado"]
+    inlines = [PedidoProductoInline]
+
+class PedidoProductoAdmin(admin.ModelAdmin):
+    list_display = ["producto", "pedido", "cantidad", "precio_total"]  # Campos que se mostrarán en la lista
+    search_fields = ["producto__nombre", "pedido__id"]  # Para buscar por nombre del producto y ID del pedido
+
+    def precio_total(self, obj):
+        return obj.producto.precio * obj.cantidad 
+
+    precio_total.short_description = "Precio Total"
+
+admin.site.register(Producto, ProductoAdmin)
+admin.site.register(Pedido, PedidoAdmin)
+admin.site.register(PedidoProducto, PedidoProductoAdmin)
 

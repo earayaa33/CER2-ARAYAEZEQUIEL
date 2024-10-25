@@ -10,7 +10,7 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to="productos", null= True)
 
     def __str__(self):
-        return f'{self.nombre}->{self.precio}'
+        return f'{self.nombre}'
 
 class Pedido(models.Model):
     ESTADO_CHOICES = [
@@ -32,4 +32,4 @@ class PedidoProducto(models.Model):
     cantidad = models.IntegerField()
 
     def __str__(self):
-        return f'{self.producto.nombre} x {self.cantidad}'
+        return f'{self.producto.nombre}'

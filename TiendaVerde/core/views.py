@@ -8,10 +8,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 def home(request):
+    productos = Producto.objects.all
     carrito = Carrito(request)
     total_productos = carrito.contar_productos()
 
-    return render(request, 'core/home.html', {'carrito': carrito, 'total_productos': total_productos})
+    data = {
+        'productos': productos, 'total_productos' : total_productos
+    }
+
+    return render(request, 'core/home.html', data)
 
 def catalogo(request):
     productos = Producto.objects.all()
@@ -57,8 +62,7 @@ def ver_carrito(request):
 
     return render(request, 'core/carrito.html', {'carrito': carrito, 'total_productos': total_productos})
 
-
-@login_required 
+@login_required
 def añadir_a_carrito(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito = Carrito(request)
