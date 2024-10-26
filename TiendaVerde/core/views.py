@@ -4,7 +4,6 @@ from .carrito import Carrito
 from django.contrib import messages
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 def home(request):
@@ -62,7 +61,6 @@ def ver_carrito(request):
 
     return render(request, 'core/carrito.html', {'carrito': carrito, 'total_productos': total_productos})
 
-@login_required
 def añadir_a_carrito(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito = Carrito(request)
@@ -71,28 +69,24 @@ def añadir_a_carrito(request, producto_id):
     return redirect('catalogo')  # Redirigir al catálogo en vez del carrito
 
 
-@login_required
 def agregar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito = Carrito(request)
     carrito.agregar(producto)
     return redirect('ver_carrito')
 
-@login_required
 def eliminar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito = Carrito(request)
     carrito.eliminar(producto)
     return redirect('ver_carrito')
 
-@login_required
 def restar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito = Carrito(request)
     carrito.restar(producto)
     return redirect('ver_carrito')
 
-@login_required
 def limpiar_carrito(request):
     carrito = Carrito(request)
     carrito.limpiar()

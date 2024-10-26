@@ -29,9 +29,6 @@ class Carrito:
         
         self.guardar_carrito()
 
-    def obtener_items(self):
-        return self.carrito.items()
-
     def contar_productos(self):
         return sum(item['cantidad'] for item in self.carrito.values())
 
