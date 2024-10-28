@@ -20,6 +20,10 @@ class CustomUserCreationForm(UserCreationForm):
         email = self.cleaned_data.get('email')
         if not email:
             raise forms.ValidationError("El email es obligatorio.")
+
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este email ya está registrado. Usa uno diferente.")
+        
         return email
 
     def clean_password2(self):
