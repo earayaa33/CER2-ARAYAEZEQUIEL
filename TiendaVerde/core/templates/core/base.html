@@ -56,7 +56,12 @@
                 </li>
                 <li class="nav-item"> <p id="cart-total">{{total_productos}}</p></li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+                  <form action="{% url 'logout' %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="nav-link">
+                          Cerrar sesión
+                      </button>
+                  </form>
                 </li> 
               {%else%}
                 <li class="nav-item">
