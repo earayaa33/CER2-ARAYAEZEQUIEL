@@ -15,7 +15,7 @@ class PedidoProductoInline(admin.TabularInline):
     readonly_fields = ["producto","cantidad", "precio_total"]
 
     def precio_total(self, obj):
-        return obj.producto.precio * obj.cantidad  # Calcula el precio total
+        return obj.producto.precio * obj.cantidad  
 
     precio_total.short_description = "Precio Total"
 
@@ -27,8 +27,8 @@ class PedidoAdmin(admin.ModelAdmin):
     inlines = [PedidoProductoInline]
 
 class PedidoProductoAdmin(admin.ModelAdmin):
-    list_display = ["producto", "pedido", "cantidad", "precio_total"]  # Campos que se mostrarán en la lista
-    search_fields = ["producto__nombre", "pedido__id"]  # Para buscar por nombre del producto y ID del pedido
+    list_display = ["producto", "pedido", "cantidad", "precio_total"]  
+    search_fields = ["producto__nombre", "pedido__id"]  
 
     def precio_total(self, obj):
         return obj.producto.precio * obj.cantidad 

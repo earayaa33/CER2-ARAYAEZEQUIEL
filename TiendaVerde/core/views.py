@@ -72,7 +72,7 @@ def añadir_a_carrito(request, producto_id):
 def agregar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito = Carrito(request)
-    carrito.agregar(producto)
+    carrito.agregar(producto) #Llama al metodo agregar de carrito.py
     return redirect('ver_carrito')
 
 def eliminar_producto(request, producto_id):
