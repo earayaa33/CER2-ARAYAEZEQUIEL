@@ -26,9 +26,9 @@
   </div>
 
   <div class="container mt-5">
-        <div class="row filaCatalogo mb-5">
+        <div class="row mt-5" style="margin-bottom: 50px">
           {% for p in productos %}
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-top: 40px;">
               <div class="card h-100">
                   {%if p.imagen %}
                   <img src="{{ p.imagen.url }}" class="card-img-top" alt="{{ p.nombre }}">
