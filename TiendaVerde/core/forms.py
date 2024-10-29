@@ -1,5 +1,4 @@
 from django import forms
-from .models import Producto
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -11,7 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
         help_texts = { k : "" for k in fields}
 
     def clean_user(self):
-        username = self.cleaned_data.get('username')
+        user = self.cleaned_data.get('username')
         if not user:
             raise forms.ValidationError("El usuario es obligatorio")
         return username
@@ -22,7 +21,7 @@ class CustomUserCreationForm(UserCreationForm):
             raise forms.ValidationError("El email es obligatorio.")
 
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("Este email ya está registrado. Usa uno diferente.")
+            raise forms.ValidationError("Este email ya está registrado.")
         
         return email
 
